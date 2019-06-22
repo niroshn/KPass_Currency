@@ -18,6 +18,6 @@ app.get('/', (req, res) => {
 // Set Express router with API version prefix
 app.use('/', router);
 
-app.listen(process.env.PORT, () => console.log('Server is listening on port 3400'));
+app.listen(process.env.PORT, () => console.log(`Server is listening on port ${process.env.PORT}`));
 
-export default app;
+exports.app = app;

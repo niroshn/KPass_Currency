@@ -2,7 +2,6 @@ import HttpStatus from 'http-status-codes';
 import request from 'supertest';
 import { app } from '../../../index';
 
-
 describe('routes: get /hello', () => {
   test('should respond with success status', async () => {
     const response = await request(app)
