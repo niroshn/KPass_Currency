@@ -39,9 +39,7 @@ const App = props => (
           justify="center"
           style={{ minHeight: '100vh' }}
         >
-          <Grid item xs={3}>
-            <Home />
-          </Grid>
+          <Home />
         </Grid>
       </Wrapper>
     </Provider>

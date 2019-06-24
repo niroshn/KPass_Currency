@@ -7,14 +7,14 @@
 
 ### BackEnd (API)
 
-`cd api`
-`npm start`
+- `cd api`
+- `npm start`
 
 
 ### FrontEnd (Web)
 
-`cd web`
-`npm start`
+- `cd web`
+- `npm start`
 
 ## Used technologies 
 
