@@ -1,14 +1,16 @@
 import axios from 'axios';
 import * as _ from 'lodash';
+import moment from 'moment';
 
 const BASE_URL = 'https://api.exchangeratesapi.io';
+const LAST_DAYS = 25;
 
 class CurrencyService {
   static async getTodayRates(base, target) {
     try {
       const response = await axios.get(`${BASE_URL}/latest?base=${base}&symbols=${target}`);
       const { data } = response;
-      return data;
+      return { targetRateToday: data.rates[`${target}`] };
     } catch (error) {
       return error;
     }
@@ -16,19 +18,28 @@ class CurrencyService {
 
   static async getHistoricalBestDate(base, target) {
     try {
-      const response = await axios.get(`${BASE_URL}/history?start_at=2018-01-01&end_at=2018-09-01&base=${base}`);
+      const endDate = moment().format('YYYY-MM-DD');
+      const startDate = moment()
+        .subtract(LAST_DAYS, 'days')
+        .format('YYYY-MM-DD');
+      const response = await axios.get(`${BASE_URL}/history?start_at=${startDate}&end_at=${endDate}&base=${base}`);
       const { data } = response;
-      const bestRate = _.maxBy(_.toArray(data.rates), 'RUB');
+      const bestRate = _.maxBy(_.toArray(data.rates), target);
       const bestDate = _.findKey(data.rates, { USD: 1, RUB: bestRate.RUB });
-
       return {
         date: bestDate,
         baseRate: 1,
-        targetRate: bestDate[target],
+        targetRate: bestRate[`${target}`],
       };
     } catch (error) {
       return error;
     }
+  }
+
+  static async getPredictDate() {
+    return {
+      predictDate: '2019-08-03',
+    };
   }
 }
 
