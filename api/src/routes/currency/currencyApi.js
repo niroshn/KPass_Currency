@@ -5,23 +5,26 @@ import CurrencyService from './currencyService';
 class CurrencyApi {
   constructor() {
     this.router = new Router({ mergeParams: true });
-    this.router.get('/history', this.history);
-    this.router.get('/today', this.today);
-    this.router.get('/predict', this.predict);
+    this.router.get('/currency/info', this.info);
   }
 
-  async history(req, res) {
-    const result = await CurrencyService.getHistoricalBestDate('USD', 'BGP');
+  async info(req, res) {
+    const baseCurrency = req.query.base || 'USD';
+    const targetCurrency = req.query.target || 'CAD';
+    // const waitTime = req.query.wait_time;
+    // const amount = req.query.amount;
+    const historyData = await CurrencyService.getHistoricalBestDate(baseCurrency, targetCurrency);
+    const todayData = await CurrencyService.getTodayRates(baseCurrency, targetCurrency);
+    const predictData = await CurrencyService.getPredictDate();
+    const result = {
+      baseCurrency,
+      targetCurrency,
+      todayTargetCurrency: todayData.targetRateToday,
+      historyTargetCurrency: historyData.targetRate,
+      bestPastDate: historyData.date,
+      bestBuyDate: predictData.predictDate,
+    };
     res.status(HttpStatus.OK).send(result);
-  }
-
-  async today(req, res) {
-    const result = await CurrencyService.getTodayRates('USD', 'BGP');
-    res.status(HttpStatus.OK).send(result);
-  }
-
-  async predict(req, res) {
-    res.status(HttpStatus.OK).send({ data: ['predict', 'data2', 'data3', 'data4', 'data5'] });
   }
 }
 
