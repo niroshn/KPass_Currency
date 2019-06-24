@@ -10,6 +10,10 @@
 - `cd api`
 - `npm start`
 
+####Use API
+
+`GET http://localhost:5555/currency/info?base=USD&target=EUR&wait_time=2&amount=2340 HTTP/1.1`
+
 
 ### FrontEnd (Web)
 
@@ -43,7 +47,7 @@
 
 ## Exchange API
 
-https://www.exchangeratesapi.io/ used for currency rates
+ https://www.exchangeratesapi.io/ used for currency rates
 
  
  # Supported currencies
