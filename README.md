@@ -10,7 +10,7 @@
 - `cd api`
 - `npm start`
 
-####Use API
+Use API
 
 `GET http://localhost:5555/currency/info?base=USD&target=EUR&wait_time=2&amount=2340 HTTP/1.1`
 
