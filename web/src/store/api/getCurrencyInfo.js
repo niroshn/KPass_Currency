@@ -1,7 +1,10 @@
 import 'isomorphic-fetch';
 
-const getCurrencyInfo = async id => {
-  const response = await fetch(`https://react-assessment-api.herokuapp.com/api/weather/location/${id}/`);
+const getCurrencyInfo = async data => {
+  const { baseCurrency, waitingTime, targetCurrency, amount } = data;
+  const response = await fetch(
+    `http://localhost:5555/currency/info?base=${baseCurrency}&target=${targetCurrency}&wait_time=${waitingTime}&amount=${amount}`
+  );
   if (!response.ok) {
     return { error: { code: response.status } };
   }
