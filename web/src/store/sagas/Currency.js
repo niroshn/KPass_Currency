@@ -10,9 +10,9 @@ function delay(duration) {
   return promise;
 }
 
-function* fetchCurrencyData() {
+function* fetchCurrencyData(action) {
   try {
-    const { data } = yield call(API.getCurrencyInfo, { data: 1 });
+    const { data } = yield call(API.getCurrencyInfo, action);
     yield put({ type: SUBMIT_FORM_SUCCESS, data });
     yield call(delay, 3000);
   } catch (error) {

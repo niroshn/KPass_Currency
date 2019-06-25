@@ -1,7 +1,10 @@
 import 'isomorphic-fetch';
 
-const getCurrencyInfo = async () => {
-  const response = await fetch(`http://localhost:5555/currency/info?base=USD&target=EUR&wait_time=2&amount=2340`);
+const getCurrencyInfo = async data => {
+  const { baseCurrency, waitingTime, targetCurrency, amount } = data;
+  const response = await fetch(
+    `http://localhost:5555/currency/info?base=${baseCurrency}&target=${targetCurrency}&wait_time=${waitingTime}&amount=${amount}`
+  );
   if (!response.ok) {
     return { error: { code: response.status } };
   }

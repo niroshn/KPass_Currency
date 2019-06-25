@@ -1,40 +1,50 @@
 import React, { Component } from 'react';
-import { bindActionCreators } from 'redux';
 import moment from 'moment';
 import { connect } from 'react-redux';
 import withStyles from '@material-ui/core/styles/withStyles';
 import InputLabel from '@material-ui/core/InputLabel';
 import Button from '@material-ui/core/Button';
-import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 import MenuItem from '@material-ui/core/MenuItem';
 import { Typography } from '@material-ui/core';
 import * as actions from '../store/actions';
-
-import { Field, reduxForm, formValueSelector } from 'redux-form';
-import ReactSelect from '../components/ReactSelect';
+import { Field, reduxForm } from 'redux-form';
 import SelectField from '../components/SelectField';
 import TextField from '../components/TextField';
 
 const supportedCurrencies = [
-  { label: 'AUD', value: 'AUD' },
-  { value: 'BGN', label: 'BGN' },
-  { value: 'BRL', label: 'BRL' },
-  { value: 'CAD', label: 'CAD' },
-  { value: 'CHF', label: 'CHF' },
-  { value: 'CNY', label: 'CNY' },
-  { value: 'DKK', label: 'DKK' },
-  { value: 'EUR', label: 'EUR' },
-  { value: 'GBP', label: 'GBP' },
-  { label: 'AUD', value: 'AUD' },
-  { value: 'BGN', label: 'BGN' },
-  { value: 'BRL', label: 'BRL' },
-  { value: 'CAD', label: 'CAD' },
-  { value: 'CHF', label: 'CHF' },
-  { value: 'CNY', label: 'CNY' },
-  { value: 'DKK', label: 'DKK' },
-  { value: 'EUR', label: 'EUR' },
-  { value: 'GBP', label: 'GBP' }
+  'AUD',
+  'BGN',
+  'BRL',
+  'CAD',
+  'CHF',
+  'CNY',
+  'CZK',
+  'DKK',
+  'EUR',
+  'GBP',
+  'HKD',
+  'HRK',
+  'HUF',
+  'IDR',
+  'ILS',
+  'INR',
+  'JPY',
+  'KRW',
+  'MXN',
+  'MYR',
+  'NOK',
+  'NZD',
+  'PHP',
+  'PLN',
+  'RON',
+  'RUB',
+  'SEK',
+  'SGD',
+  'THB',
+  'TRY',
+  'USD',
+  'ZAR'
 ];
 
 function validate(values) {
@@ -60,19 +70,28 @@ const styles = theme => ({
 export class Home extends Component {
   submit = values => {
     const { baseCurrency, waitingTime, targetCurrency, amount } = values;
+    this.props.onLoad({
+      baseCurrency,
+      waitingTime,
+      targetCurrency,
+      amount
+    });
   };
 
-  componentDidMount() {
-    this.props.onLoad();
+  renderCurrencyOptions() {
+    return supportedCurrencies.map(item => {
+      return (
+        <MenuItem key={item} value={item}>
+          {item}
+        </MenuItem>
+      );
+    });
   }
 
   render() {
-    const { classes, handleSubmit, pristine, submitting, data, fetching, error } = this.props;
-    const baseCurrency = data.baseCurrency || '';
-    const targetCurrency = data.targetCurrency;
-    const todayTargetCurrency = data.todayTargetCurrency;
-    const bestPastDate = data.bestPastDate;
-    const bestBuyDate = data.bestBuyDate;
+    const { handleSubmit, pristine, submitting, data, fetching } = this.props;
+    const { baseCurrency, todayTargetCurrency, targetCurrency, bestPastDate, bestBuyDate } = data;
+
     return (
       <div>
         <main>
@@ -85,17 +104,16 @@ export class Home extends Component {
                   fullWidth
                   margin="dense"
                   name="baseCurrency"
-                  component={ReactSelect}
+                  component={SelectField}
                   options={supportedCurrencies}
-                />
+                >
+                  {this.renderCurrencyOptions()}
+                </Field>
                 <InputLabel>Target Currency: </InputLabel>
-                <Field
-                  fullWidth
-                  margin="dense"
-                  name="targetCurrency"
-                  component={ReactSelect}
-                  options={supportedCurrencies}
-                />
+                <Field fullWidth margin="dense" name="targetCurrency" component={SelectField}>
+                  {this.renderCurrencyOptions()}
+                </Field>
+
                 <InputLabel>Amount: </InputLabel>
                 <Field fullWidth margin="dense" name="amount" component={TextField} options={supportedCurrencies} />
                 <InputLabel>Max Waiting Time (Weeks): </InputLabel>
@@ -113,7 +131,6 @@ export class Home extends Component {
                   color="primary"
                   type="submit"
                   disabled={pristine || submitting}
-                  type="submit"
                 >
                   Submit
                 </Button>
@@ -153,8 +170,9 @@ const mapStateToProps = state => {
 };
 
 const mapDispatchToProps = dispatch => ({
-  onLoad: () =>
+  onLoad: data =>
     dispatch({
+      ...data,
       type: actions.SUBMIT_FORM_START
     })
 });
@@ -165,7 +183,7 @@ export default withStyles(styles)(
     destroyOnUnmount: false,
     forceUnregisterOnUnmount: true,
     initialValues: {
-      requestType: 'custom'
+      baseCurrency: ''
     },
     validate
   })(

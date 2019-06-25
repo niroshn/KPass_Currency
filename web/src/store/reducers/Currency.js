@@ -6,8 +6,8 @@ const initialState = {
   error: {}
 };
 
-const startFormSubmit = state => {
-  return { ...state, fetching: true };
+const startFormSubmit = (state, action) => {
+  return { ...state, fetching: true, data: action };
 };
 
 const currencyReceived = (state, action) => {
