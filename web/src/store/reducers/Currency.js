@@ -2,16 +2,16 @@ import * as actions from '../actions';
 
 const initialState = {
   fetching: false,
-  data: [],
+  data: {},
   error: {}
 };
 
-const startFormSubmit = (state, action) => {
+const startFormSubmit = state => {
   return { ...state, fetching: true };
 };
 
 const currencyReceived = (state, action) => {
-  return { ...state, data: action.data.data };
+  return { ...state, data: action.data };
 };
 
 const error = (state, action) => {
@@ -20,7 +20,7 @@ const error = (state, action) => {
 
 const handlers = {
   [actions.SUBMIT_FORM_START]: startFormSubmit,
-  [actions.SUBMIT_FORM_SUCCESS]:currencyReceived,
+  [actions.SUBMIT_FORM_SUCCESS]: currencyReceived,
   [actions.API_ERROR]: error
 };
 

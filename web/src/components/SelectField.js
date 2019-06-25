@@ -11,7 +11,7 @@ function renderSelectField({ input, label, meta: { touched, error, warning }, ch
         label={label}
         id={input.name}
         {...input}
-        onChange={(event, index, value) => input.onChange(event.target.value)}
+        onChange={event => input.onChange(event.target.value)}
         children={children}
         {...custom}
         select
@@ -27,7 +27,7 @@ function renderSelectField({ input, label, meta: { touched, error, warning }, ch
         label={label}
         id={input.name}
         {...input}
-        onChange={(event, index, value) => input.onChange(event.target.value)}
+        onChange={event => input.onChange(event.target.value)}
         children={children}
         {...custom}
         select
@@ -47,7 +47,7 @@ function renderSelectField({ input, label, meta: { touched, error, warning }, ch
       label={label}
       id={input.name}
       {...input}
-      onChange={(event, index, value) => input.onChange(event.target.value)}
+      onChange={event => input.onChange(event.target.value)}
       children={children}
       {...custom}
       select

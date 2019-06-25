@@ -6,7 +6,7 @@ import currencyReducer from './reducers/Currency';
 
 export default () => {
   const rootReducer = combineReducers({
-    drone: currencyReducer
+    currency: currencyReducer
   });
 
   const composeEnhancers = composeWithDevTools({});

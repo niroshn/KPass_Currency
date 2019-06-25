@@ -3,7 +3,8 @@ import { MenuItem } from '@material-ui/core';
 
 export default class Option extends React.Component {
   handleClick = event => {
-    this.props.selectOption(this.props.data, event);
+    const { data, selectOption } = this.props;
+    selectOption(data, event);
   };
 
   render() {

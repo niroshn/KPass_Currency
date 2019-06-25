@@ -9,6 +9,7 @@ import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 import MenuItem from '@material-ui/core/MenuItem';
 import { Typography } from '@material-ui/core';
+import * as actions from '../store/actions';
 
 import { Field, reduxForm, formValueSelector } from 'redux-form';
 import ReactSelect from '../components/ReactSelect';
@@ -61,17 +62,21 @@ export class Home extends Component {
     const { baseCurrency, waitingTime, targetCurrency, amount } = values;
   };
 
+  componentDidMount() {
+    this.props.onLoad();
+  }
+
   render() {
-    const { classes, handleSubmit, pristine, submitting } = this.props;
-    const baseCurrency = 'USD';
-    const targetCurrency = 'EUR';
-    const todayTargetCurrency = 23.4;
-    const bestPastDate = '2019-05-12';
-    const bestBuyDate = '2019-09-23';
+    const { classes, handleSubmit, pristine, submitting, data, fetching, error } = this.props;
+    const baseCurrency = data.baseCurrency || '';
+    const targetCurrency = data.targetCurrency;
+    const todayTargetCurrency = data.todayTargetCurrency;
+    const bestPastDate = data.bestPastDate;
+    const bestBuyDate = data.bestBuyDate;
     return (
       <div>
         <main>
-          <Grid container justify="center" spacing={'8px'}>
+          <Grid container justify="center">
             <Grid item xs={3} />
             <Grid item xs={3}>
               <form onSubmit={handleSubmit(this.submit)} noValidate autoComplete="off">
@@ -116,15 +121,19 @@ export class Home extends Component {
             </Grid>
             <Grid item xs={2} />
             <Grid item xs={3}>
-              <Typography variant="h6" gutterBottom>
-                {`${moment(bestPastDate, 'YYYY-MM-DD').fromNow()}: 1 ${baseCurrency} = 2 ${targetCurrency}`}
-              </Typography>
-              <Typography variant="h6" gutterBottom>
-                {`today: 1 ${baseCurrency} = ${todayTargetCurrency} ${targetCurrency}`}
-              </Typography>
-              <Typography variant="h6" gutterBottom>
-                {`Buying Date = ${bestBuyDate}`}
-              </Typography>
+              {fetching ? (
+                <div>
+                  <Typography variant="h6" gutterBottom>
+                    {`${moment(bestPastDate, 'YYYY-MM-DD').fromNow()}: 1 ${baseCurrency} = 2 ${targetCurrency}`}
+                  </Typography>
+                  <Typography variant="h6" gutterBottom>
+                    {`today: 1 ${baseCurrency} = ${todayTargetCurrency} ${targetCurrency}`}
+                  </Typography>
+                  <Typography variant="h6" gutterBottom>
+                    {`Buying Date = ${bestBuyDate}`}
+                  </Typography>
+                </div>
+              ) : null}
             </Grid>
             <Grid item xs={1} />
           </Grid>
@@ -134,9 +143,21 @@ export class Home extends Component {
   }
 }
 
-const mapStateToProps = state => ({});
+const mapStateToProps = state => {
+  const { fetching, error, data } = state.currency;
+  return {
+    fetching,
+    error,
+    data
+  };
+};
 
-const mapDispatchToProps = dispatch => ({});
+const mapDispatchToProps = dispatch => ({
+  onLoad: () =>
+    dispatch({
+      type: actions.SUBMIT_FORM_START
+    })
+});
 
 export default withStyles(styles)(
   reduxForm({

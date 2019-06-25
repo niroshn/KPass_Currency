@@ -14,12 +14,13 @@ const styles = theme => ({
 
 class SelectInputField extends Component {
   onChange = value => {
-    if (this.props.input.onChange && value != null) {
+    const { input } = this.props;
+    if (input.onChange && value != null) {
       // To be aligned with how redux-form publishes its CHANGE action payload. The value received is an object with 2 keys: "value" and "label"
-      this.props.input.onChange(value);
+      input.onChange(value);
     } else {
       // Clear the input field
-      this.props.input.onChange(null);
+      input.onChange(null);
     }
   };
 
@@ -33,7 +34,7 @@ class SelectInputField extends Component {
         {...custom}
         id={id}
         name={name}
-        onBlur={() => this.props.input.onBlur(this.props.input.value)}
+        onBlur={() => input.onBlur(input.value)}
         onChange={this.onChange}
         placeholder=""
         InputProps={{
