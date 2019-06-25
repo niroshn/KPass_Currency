@@ -89,7 +89,7 @@ export class Home extends Component {
   }
 
   render() {
-    const { handleSubmit, pristine, submitting, data, fetching } = this.props;
+    const { handleSubmit, pristine, submitting, data, fetching, loaded } = this.props;
     const { baseCurrency, todayTargetCurrency, targetCurrency, bestPastDate, bestBuyDate } = data;
 
     return (
@@ -138,7 +138,7 @@ export class Home extends Component {
             </Grid>
             <Grid item xs={2} />
             <Grid item xs={3}>
-              {fetching ? (
+              {fetching & loaded ? (
                 <div>
                   <Typography variant="h6" gutterBottom>
                     {`${moment(bestPastDate, 'YYYY-MM-DD').fromNow()}: 1 ${baseCurrency} = 2 ${targetCurrency}`}
@@ -161,11 +161,12 @@ export class Home extends Component {
 }
 
 const mapStateToProps = state => {
-  const { fetching, error, data } = state.currency;
+  const { fetching, error, data, loaded } = state.currency;
   return {
     fetching,
     error,
-    data
+    data,
+    loaded
   };
 };
 
