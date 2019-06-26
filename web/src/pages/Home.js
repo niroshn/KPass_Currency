@@ -113,15 +113,9 @@ export class Home extends Component {
                 </Field>
 
                 <InputLabel>Amount: </InputLabel>
-                <Field fullWidth margin="dense" name="amount" component={TextField} options={supportedCurrencies} />
+                <Field fullWidth margin="dense" name="amount" type="number" component={TextField} />
                 <InputLabel>Max Waiting Time (Weeks): </InputLabel>
-                <Field
-                  fullWidth
-                  margin="dense"
-                  name="waitingTime"
-                  component={TextField}
-                  options={supportedCurrencies}
-                />
+                <Field fullWidth margin="dense" name="waitingTime" type="number" component={TextField} />
                 <Button
                   style={{ marginTop: '3vh' }}
                   fullWidth
