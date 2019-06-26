@@ -11,17 +11,19 @@ class CurrencyApi {
   async info(req, res) {
     const baseCurrency = req.query.base || 'USD';
     const targetCurrency = req.query.target || 'CAD';
-    // const waitTime = req.query.wait_time;
-    // const amount = req.query.amount;
+    const { amount } = req.query;
+    const wait = req.query.wait_time;
     const historyData = await CurrencyService.getHistoricalBestDate(baseCurrency, targetCurrency);
     const todayData = await CurrencyService.getTodayRates(baseCurrency, targetCurrency);
-    const predictData = await CurrencyService.getPredictDate();
+    const predictData = await CurrencyService.getPredictDate(baseCurrency, targetCurrency, wait);
     const result = {
       baseCurrency,
       targetCurrency,
+      amount,
       todayTargetCurrency: todayData.targetRateToday,
       historyTargetCurrency: historyData.targetRate,
-      bestPastDate: historyData.date,
+      bestTargetCurrency: predictData.bestTargetCurrency,
+      bestLastDate: historyData.date,
       bestBuyDate: predictData.predictDate,
     };
     res.status(HttpStatus.OK).send(result);

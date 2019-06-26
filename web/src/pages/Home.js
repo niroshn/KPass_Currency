@@ -49,7 +49,6 @@ const supportedCurrencies = [
 
 function validate(values) {
   const errors = {};
-
   const requiredFields = ['baseCurrency', 'waitingTime', 'targetCurrency', 'amount'];
   requiredFields.forEach(field => {
     if (!values[field] || values[field].length === 0) {
@@ -90,8 +89,7 @@ export class Home extends Component {
 
   render() {
     const { handleSubmit, pristine, submitting, data, fetching, loaded } = this.props;
-    const { baseCurrency, todayTargetCurrency, targetCurrency, bestPastDate, bestBuyDate } = data;
-
+    const { baseCurrency, todayTargetCurrency, targetCurrency, bestLastDate, bestBuyDate } = data;
     return (
       <div>
         <main>
@@ -141,7 +139,7 @@ export class Home extends Component {
               {fetching & loaded ? (
                 <div>
                   <Typography variant="h6" gutterBottom>
-                    {`${moment(bestPastDate, 'YYYY-MM-DD').fromNow()}: 1 ${baseCurrency} = 2 ${targetCurrency}`}
+                    {`${moment(bestLastDate, 'YYYY-MM-DD').fromNow()}: 1 ${baseCurrency} = 2 ${targetCurrency}`}
                   </Typography>
                   <Typography variant="h6" gutterBottom>
                     {`today: 1 ${baseCurrency} = ${todayTargetCurrency} ${targetCurrency}`}
