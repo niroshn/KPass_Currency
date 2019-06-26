@@ -12,13 +12,10 @@ Run Development Environment
 - `npm install`
 - `npm start`
 
-Run ESLint
-- `npm run eslint`
+Use API
 
-Run Unit Test
-- `npm test`
-Run Unit Test with Test Coverage
-- `npm test -- --coverage`
+`GET http://localhost:5555/currency/info?base=USD&target=EUR&wait_time=2&amount=2340 HTTP/1.1`
+
 
 ### FrontEnd (Web)
 
@@ -63,7 +60,7 @@ Run Unit Test with Test Coverage
 
 ## Exchange API
 
-https://www.exchangeratesapi.io/ used for currency rates
+ https://www.exchangeratesapi.io/ used for currency rates
 
  
  # Supported currencies
