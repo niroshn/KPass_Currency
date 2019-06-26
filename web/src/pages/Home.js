@@ -89,7 +89,7 @@ export class Home extends Component {
 
   render() {
     const { handleSubmit, pristine, submitting, data, fetching, loaded } = this.props;
-    const { baseCurrency, todayTargetCurrency, targetCurrency, bestLastDate, bestBuyDate } = data;
+    const { baseCurrency, todayTargetCurrency, targetCurrency, bestLastDate, bestBuyDate, bestBuyRate, amount } = data;
     return (
       <div>
         <main>
@@ -146,6 +146,12 @@ export class Home extends Component {
                   </Typography>
                   <Typography variant="h6" gutterBottom>
                     {`Buying Date = ${bestBuyDate}`}
+                  </Typography>
+                  <Typography variant="h6" gutterBottom>
+                    {`Predicted Buying Rate = ${bestBuyRate}`}
+                  </Typography>
+                  <Typography variant="h6" gutterBottom>
+                    {`Spend ${bestBuyRate} x ${amount} = ${(Number(bestBuyRate) * Number(amount)).toFixed(2)}`}
                   </Typography>
                 </div>
               ) : null}

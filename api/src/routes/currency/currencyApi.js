@@ -25,6 +25,7 @@ class CurrencyApi {
       bestTargetCurrency: predictData.bestTargetCurrency,
       bestLastDate: historyData.date,
       bestBuyDate: predictData.predictDate,
+      bestBuyRate: predictData.bestRate,
     };
     res.status(HttpStatus.OK).send(result);
   }
