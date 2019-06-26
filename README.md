@@ -58,6 +58,23 @@ Run Unit Test with Test Coverage
 - EsLint
 
 
+### ToDo List
+- [x] Finish Web Front End Using React, Redux, Saga 
+- [x] Finish Back End API with Express JS 
+- [x] 80% Plus unit test Coverage for BackEnd API ( Using Jest )
+- [x] husky Configuration for Backend and Front End
+- [x] ESlint Config and Fix issues ( Front End + Backend )
+- [x] Basic Prediction Algorithm
+- [x] ReadMe 
+- [x] Dockerize Backend API
+- [x] Host Demo ( front end application) using Github pages or AWS S3 Static Web hosting
+- [x] Host Demo ( Back end API ) Using AWS
+- [x] Demo Gif Animation 
+- [ ] Add a Advaced Machine Learing Model for exchange rate predication
+- [ ] One Click application setup using AWS Cloudfromation or anyother Tool
+- [ ] 80% Plus unit test Coverage for Front end ( Using Jest, Enzyme )
+- [ ] Continuous integration with travis ci
+
 ## Exchange API
 
  https://www.exchangeratesapi.io/ used for currency rates
