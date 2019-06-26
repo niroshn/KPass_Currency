@@ -8,6 +8,12 @@ const ROUND_UP = 2;
 const YEAR_OPERATION = 1;
 
 class CurrencyService {
+  /**
+   * Return Latest Currency Rate
+   * @param  {} base base currency
+   * @param  {} target target currency
+   */
+
   static async getTodayRates(base, target) {
     try {
       const response = await axios.get(`${BASE_URL}/latest?base=${base}&symbols=${target}`);
@@ -18,6 +24,11 @@ class CurrencyService {
     }
   }
 
+  /**
+   * Return 25 weeks back best Rates and Date
+   * @param  {} base base currency
+   * @param  {} target target currency
+   */
   static async getHistoricalBestDate(base, target) {
     try {
       const endDate = moment().format('YYYY-MM-DD');
@@ -38,6 +49,19 @@ class CurrencyService {
       return error;
     }
   }
+
+  /**
+   * Prediction Alogorithm
+   * imple Algo
+   * Assume Every Year has same currency exchange pattern
+   */
+
+  /**
+   * Return Best predict rate and date
+   * @param  {} base base currency
+   * @param  {} target target currency
+   * @param  {} wait Time Period ( Maximum Waiting) target currency
+   */
 
   static async getPredictDate(base, target, wait) {
     const todayLastYear = moment()
