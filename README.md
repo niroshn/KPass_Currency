@@ -14,7 +14,7 @@ Run Development Environment
 
 Use API
 
-`GET http://localhost:5555/currency/info?base=USD&target=EUR&wait_time=2&amount=2340 HTTP/1.1`
+`GET http://localhost:3333/currency/info?base=USD&target=EUR&wait_time=2&amount=2340 HTTP/1.1`
 
 
 ### FrontEnd (Web)
@@ -31,7 +31,8 @@ Run Unit Test
 - `npm test`
 Run Unit Test with Test Coverage
 - `npm test -- --coverage`
-
+Build Production Host fils
+- `npm run build`
 
 ## Used technologies 
 
