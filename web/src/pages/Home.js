@@ -49,7 +49,6 @@ const supportedCurrencies = [
 
 function validate(values) {
   const errors = {};
-
   const requiredFields = ['baseCurrency', 'waitingTime', 'targetCurrency', 'amount'];
   requiredFields.forEach(field => {
     if (!values[field] || values[field].length === 0) {
@@ -89,9 +88,8 @@ export class Home extends Component {
   }
 
   render() {
-    const { handleSubmit, pristine, submitting, data, fetching } = this.props;
-    const { baseCurrency, todayTargetCurrency, targetCurrency, bestPastDate, bestBuyDate } = data;
-
+    const { handleSubmit, pristine, submitting, data, fetching, loaded } = this.props;
+    const { baseCurrency, todayTargetCurrency, targetCurrency, bestLastDate, bestBuyDate, bestBuyRate, amount } = data;
     return (
       <div>
         <main>
@@ -138,16 +136,22 @@ export class Home extends Component {
             </Grid>
             <Grid item xs={2} />
             <Grid item xs={3}>
-              {fetching ? (
+              {fetching & loaded ? (
                 <div>
                   <Typography variant="h6" gutterBottom>
-                    {`${moment(bestPastDate, 'YYYY-MM-DD').fromNow()}: 1 ${baseCurrency} = 2 ${targetCurrency}`}
+                    {`${moment(bestLastDate, 'YYYY-MM-DD').fromNow()}: 1 ${baseCurrency} = 2 ${targetCurrency}`}
                   </Typography>
                   <Typography variant="h6" gutterBottom>
                     {`today: 1 ${baseCurrency} = ${todayTargetCurrency} ${targetCurrency}`}
                   </Typography>
                   <Typography variant="h6" gutterBottom>
                     {`Buying Date = ${bestBuyDate}`}
+                  </Typography>
+                  <Typography variant="h6" gutterBottom>
+                    {`Predicted Buying Rate = ${bestBuyRate}`}
+                  </Typography>
+                  <Typography variant="h6" gutterBottom>
+                    {`Spend ${bestBuyRate} x ${amount} = ${(Number(bestBuyRate) * Number(amount)).toFixed(2)}`}
                   </Typography>
                 </div>
               ) : null}
@@ -161,11 +165,12 @@ export class Home extends Component {
 }
 
 const mapStateToProps = state => {
-  const { fetching, error, data } = state.currency;
+  const { fetching, error, data, loaded } = state.currency;
   return {
     fetching,
     error,
-    data
+    data,
+    loaded
   };
 };
 

@@ -2,6 +2,7 @@ import * as actions from '../actions';
 
 const initialState = {
   fetching: false,
+  loaded: false,
   data: {},
   error: {}
 };
@@ -11,7 +12,7 @@ const startFormSubmit = (state, action) => {
 };
 
 const currencyReceived = (state, action) => {
-  return { ...state, data: action.data };
+  return { ...state, loaded: true, data: action.data };
 };
 
 const error = (state, action) => {

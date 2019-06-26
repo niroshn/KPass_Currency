@@ -1,5 +1,5 @@
 # KPass_Currency
-### web app that helps users to find best possible time for converting money from one currency to another, using historical currency rates
+## web app that helps users to find best possible time for converting money from one currency to another, using historical currency rates
 
 ## Getting Start
 
@@ -7,7 +7,9 @@
 
 ### BackEnd (API)
 
+Run Development Environment 
 - `cd api`
+- `npm install`
 - `npm start`
 
 Use API
@@ -17,8 +19,19 @@ Use API
 
 ### FrontEnd (Web)
 
+Run Development Environment 
 - `cd web`
+- `npm install`
 - `npm start`
+
+Run ESLint
+- `npm run eslint`
+
+Run Unit Test
+- `npm test`
+Run Unit Test with Test Coverage
+- `npm test -- --coverage`
+
 
 ## Used technologies 
 
