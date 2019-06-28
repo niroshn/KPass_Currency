@@ -7,9 +7,9 @@
     "dev": "nodemon -w src --exec \"babel-node src --presets es2015,stage-0\"",
     "eslint": "eslint 'src/**/*.js'",
     "eslint-fix": "eslint 'src/**/*.js' --fix",
-    "test": "NODE_ENV=test PORT=5555 jest --coverage /*.test.js",
+    "test": "NODE_ENV=test PORT=3333 jest --coverage /*.test.js",
     "build": "babel src -s -D -d dist --presets es2015,stage-0",
-    "start": "PORT=5555 npm run dev",
+    "start": "PORT=3333 npm run dev",
     "prestart": "npm run -s build",
     "server": "nodemon dist/index.js"
   },
